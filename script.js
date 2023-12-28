@@ -1,8 +1,4 @@
-
-const computerSelection = getComputerChoice();
-const playerSelection = prompt("Make a choice of rock, paper, scissors", "").toLowerCase();
-
-console.log(playRound(playerSelection, computerSelection));
+game();
 
 function getComputerChoice() {
 
@@ -16,7 +12,9 @@ function getComputerChoice() {
     }
 }
 
-function playRound(playerSelection, computerSelection){
+function playRound(){
+    const computerSelection = getComputerChoice();
+    const playerSelection = prompt("Make a choice of rock, paper, scissors", "").toLowerCase();
 
     if(playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors") return "Your choice incorect";
 
@@ -34,4 +32,24 @@ function playRound(playerSelection, computerSelection){
     else{
         return `You Lose! ${computerSelection} beats ${playerSelection}`;
     }    
+}
+
+function game() {
+    let playerWins = 0;
+    let computerWins = 0;
+
+    while(Math.max(...wins) < 3) {
+
+        let contest = playRound()
+
+        console.log(contest);
+
+        if (/Win/g.test(contest)) {
+            playerWins++;
+        } else if (/Lose/g.test(contest)) {
+            computerWins++;
+        }
+    }
+
+    console.log(`Player wins: ${playerWins}, Computer wins: ${computerWins}`)
 }
