@@ -1,4 +1,23 @@
-game();
+const buttons = document.querySelectorAll("#button");
+const currentResult = document.querySelector(".currentResult");
+const score = document.querySelector(".score");
+let playerWins = 0;
+let computerWins = 0;
+
+buttons.forEach( button => button.addEventListener("click", () => {
+    let playerSelection = button.textContent;
+
+    currentResult.textContent = playRound(playerSelection);
+    score.textContent = `Player wins: ${playerWins}, Computer wins: ${computerWins}`;
+
+    if (Math.max(playerWins, computerWins) === 5) {
+        playerWins = 0;
+        computerWins = 0;
+    };
+}));
+
+
+// game();
 
 function getComputerChoice() {
 
@@ -12,11 +31,14 @@ function getComputerChoice() {
     }
 }
 
-function playRound(){
-    const computerSelection = getComputerChoice();
-    const playerSelection = prompt("Make a choice of rock, paper, scissors", "").toLowerCase();
+function playRound(playerSelection){
 
-    if(playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors") return "Your choice incorect";
+
+    const computerSelection = getComputerChoice();
+
+
+
+    // if(playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors") return "Your choice incorect";
 
     if (playerSelection === computerSelection) return `Draw, ${playerSelection} and ${computerSelection}`;
 
@@ -27,29 +49,34 @@ function playRound(){
     }
 
     if (computerSelection === gameRules[playerSelection]){
-        return `You Win! ${playerSelection} beats ${computerSelection}`
+        playerWins++;
+        return `You Win! ${playerSelection} beats ${computerSelection}`;
+        
     }
     else{
+        computerWins++;
         return `You Lose! ${computerSelection} beats ${playerSelection}`;
     }    
 }
 
-function game() {
-    let playerWins = 0;
-    let computerWins = 0;
+// function game() {
 
-    while(Math.max(...wins) < 3) {
 
-        let contest = playRound()
+//     if (Math.max(playerWins, computerWins) > 5) {
+//         playerWins = 0;
+//         computerWins = 0;
+//     };
 
-        console.log(contest);
+//         let contest = playRound()
 
-        if (/Win/g.test(contest)) {
-            playerWins++;
-        } else if (/Lose/g.test(contest)) {
-            computerWins++;
-        }
-    }
+//         // console.log(contest);
 
-    console.log(`Player wins: ${playerWins}, Computer wins: ${computerWins}`)
-}
+//         if (/Win/g.test(contest)) {
+//             playerWins++;
+//         } else if (/Lose/g.test(contest)) {
+//             computerWins++;
+//         }
+
+
+//     return `Player wins: ${playerWins}, Computer wins: ${computerWins}`;
+// }
